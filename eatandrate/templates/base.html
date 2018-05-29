@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html lang="en" style="position:relative;min-height:100%;margin:0;padding:0">
+<head>
+    <meta charset="UTF-8">
+    {% block head %}{% endblock %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Adjust login form width -->
+    <style>
+        .form-control {
+            width: auto;
+        }
+    </style>
+</head>
+<body style=" background-color:#e6f0ff;margin:0;padding:0">
+  <div class="pageContentWrapper" style="margin-bottom:40px">
+      <nav class="navbar navbar-default">
+		  <div class="container-fluid">
+              <!-- Brand and toggle get grouped for better mobile display -->
+              <div class="navbar-header">
+                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavBar" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="/att">EATANDRATE</a>
+              </div>
+
+              <!-- Collect the nav links, forms, and other content for toggling -->
+              <div class="collapse navbar-collapse" id="myNavBar">
+                  <form class="navbar-form navbar-left" method="post" action="{% url 'search:simple_search' %}">
+                      {% csrf_token %}
+                      <div class="form-group">
+                        <input type="text" for="btn_cerca" class="form-control" placeholder="Ricerca su EatAndDrate" name="testo_ricerca" style="width:auto">
+                      </div>
+                      <button type="submit" class="btn btn-default" name="btn_cerca">Cerca</button>
+                  </form>
+
+                  <ul class="nav navbar-nav navbar-right">
+                      {% if request.user.is_authenticated %}
+                            <li><a href="{% url 'users:my_profile' %}"> Il mio profilo </a></li>
+                            <li><a href="{% url 'users:logout' %}">Logout</a></li>
+                      {% else %}
+                            <li><a href="{% url 'users:register_owner' %}">Ho un'attività</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Accesso<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{% url 'users:login' %}">Login</a></li>
+                                    <li><a href="{% url 'users:register' %}">Registrati</a></li>
+                                </ul>
+                            </li>
+                      {% endif %}
+                  </ul>
+              </div><!-- /.navbar-collapse -->
+		  </div><!-- /.container-fluid -->
+      </nav>
+
+      {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %}">{{ message }}</div>
+            {% endfor %}
+      {% endif %}
+
+      {% block content %}{% endblock %}
+
+      <div class="fixed-bottom">
+          <div style="padding:1em;position:absolute;bottom:0;width:100%;text-align:right;background-color:#b3d1ff;height:40px;font:menu;padding-top:12px;">
+              <p>©2018 Developed with Django</p>
+          </div>
+      </div>
+  </div>
+
+  <!-- Load JavaScript -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  {% block javascript %}{% endblock %}
+
+</body>
+</html>

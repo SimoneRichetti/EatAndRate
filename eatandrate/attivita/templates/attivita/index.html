@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block head %}
+    <title>Lista Attività</title>
+{% endblock %}
+{% block content %}
+  {% if consigliati %}
+  <div class="container">
+    <div class="col-md-4">
+      <div class="row">
+        <div class="col-md-12" align="center"><h1>TOP 5 ATTIVITA'</h1></div>
+      </div>
+      <div class="row">
+        <div class="col-md-12" align="center">
+          {% for a in top_attivita_list %}
+              <p><a href="{% url 'attivita:detail' a.id %}">{{ a.nome }} ({{ a.reputazione | floatformat }})</a></p>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="row">
+        <div class="col-md-12" align="center"><h1>TOP 5 USERS</h1></div>
+      </div>
+        <div class="row">
+          <div class="col-md-12" align="center">
+            {% for u in top_user_list %}
+                  <p><a href="{% url 'users:user_profile' u.user.id %}">{{ u.user.username }} ({{ u.affidabilita }})</a></p>
+            {% endfor %}
+          </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="row">
+          <div class="col-md-12" align="center">
+
+                <h1>CONSIGLIATI</h1>
+                    {% for attivita in consigliati %}
+                          <p>  <a href="{% url 'attivita:detail' attivita.id %}">
+                                {{ attivita.nome }} ({{ attivita.reputazione | floatformat }})
+                            </a></p>
+                    {% endfor %}
+
+          </div>
+        </div>
+    </div>
+
+    {% else %}
+    <div class="container">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12" align="center"><h1>TOP 5 ATTIVITA'</h1></div>
+        </div>
+        <div class="row">
+          <div class="col-md-12" align="center">
+            {% for a in top_attivita_list %}
+                <p><a href="{% url 'attivita:detail' a.id %}">{{ a.nome }} ({{ a.reputazione | floatformat }})</a></p>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12" align="center"><h1>TOP 5 USERS</h1></div>
+        </div>
+          <div class="row">
+            <div class="col-md-12" align="center">
+              {% for u in top_user_list %}
+                    <p><a href="{% url 'users:user_profile' u.user.id %}">{{ u.user.username }} ({{ u.affidabilita }})</a></p>
+              {% endfor %}
+            </div>
+          </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+{% endblock %}

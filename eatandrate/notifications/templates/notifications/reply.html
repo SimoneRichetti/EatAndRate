@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load bootstrap_tags %}
+{% block head %}
+    <title>Reply</title>
+{% endblock %}
+
+{% block content %}
+<div align="center">
+    <form method="post" action="{% url 'notifications:reply' pk %}">
+        {% csrf_token %}
+        {{ form|as_bootstrap }}
+        <span id="spnCharLeft">0/256</span><br/>
+        <input class="btn btn-default" type="submit" style="padding:6px 30px">
+    </form>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script type='text/javascript'>
+    var maxLimit = 256;
+    var textarea = $('#answerfield');
+    var count = function ($this) {
+        var lengthCount = $this.value.length;
+        if (lengthCount > maxLimit) {
+            $this.value = $this.value.substring(0, maxLimit);
+            lengthCount = maxLimit;
+        }
+            $('#spnCharLeft').text(lengthCount + '/' + maxLimit);
+    };
+
+    $(document).ready(function () {
+        textarea.keydown(function () {
+            count(this);
+        });
+        textarea.keyup(function () {
+            count(this);
+        });
+    });
+</script>
+{% endblock %}

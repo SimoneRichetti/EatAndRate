@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load bootstrap_tags %}
+{% block head %}
+    <title>Modifica</title>
+{% endblock %}
+{% block content %}
+    <div align="center">
+        <a href="{% url 'attivita:detail' attivita.id %}">Torna a {{ attivita.nome | capfirst }}</a>
+
+        <div class="row-fluid">
+        <div class="col-md-12" align="center"><h3>Dati Attività</h3></div>
+        </div>
+        {% if error_msg %}
+        <h3>{{ error_msg }}</h3>
+        {% endif %}
+        <div class="row-fluid">
+            <form method="post" action="{% url 'attivita:modify' pk %}">
+                {% csrf_token %}
+                <div class="col-md-3" align="center"></div>
+                <div class="col-md-3" align="center">  {{ attform|as_bootstrap }}
+                    <input class="btn btn-default" type="submit" name="attivitainfo" value="Aggiorna Informazioni" style="padding:6px 10px"/>
+                </div>
+                <div class="col-md-3" align="center">
+                    {{ tipform|as_bootstrap }}
+                    <input class="btn btn-default" type="submit" name="tipologieinfo" value="Aggiorna tipologie" style="padding:6px 10px"/>
+                </div>
+                <div class="col-md-3" align="center"></div>
+            </form>
+        </div>
+
+        <div class="row-fluid">
+            <div class="col-md-12" align="center"><h3>Immagini</h3></div>
+            <div class="col-md-12">
+                <a href="{% url 'attivita:add_image' attivita.id %}">
+                  <input class="btn btn-default" value="Aggiungi Immagine" style="padding: 6px 15px;margin-bottom:45px">
+                </a>
+            </div>
+            <div class="col-md-12" style="margin-bottom: 70px">
+                {% if attivita.image_set %}
+                    {% for img in attivita.image_set.all %}
+                        <p>
+                            {{ img.titolo }}
+                            <a href="{% url 'attivita:delete_image' img.id %}"><button type="button">X</button></a>
+                        </p>
+                    {% endfor %}
+                {% else %}
+                    <p>Nessuna immagine caricata! :(</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

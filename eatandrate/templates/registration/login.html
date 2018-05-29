@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load bootstrap_tags %}
+{% block head %}
+    <title>Login</title>
+{% endblock %}
+{% block content %}
+<div align="center">
+    <section>
+        <form method="post">
+            {% csrf_token %}
+            {{ form|as_bootstrap }}
+
+            {% if next %}
+                <input type="hidden" name="next" value="{{ next }}" />
+            {% else %}
+                <input type="hidden" name="next" value="{% url 'attivita:index' %}" />
+            {% endif %}
+            <input class="btn btn-default" type="submit" value="Login" style="padding:6px 30px">
+        </form>
+        <p style="margin-top:20px">Non hai un account? <a href="{% url 'users:register' %}">Registrati</a></p>
+    </section>
+</div>
+{% endblock %}
+

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load bootstrap_tags %}
+
+{% block head %}
+    <title>Registration</title>
+{% endblock %}
+
+{% block content %}
+{% if error_msg %}
+    <h2>{{ error_msg }}</h2>
+{% endif %}
+
+<div align="center">
+    <h3 style="margin-top:10px">Registrazione Utente</h3>
+    <form method="POST" action="{% url 'users:register' %}">
+        {% csrf_token %}
+        {{ form|as_bootstrap }}
+        <input class="btn btn-default" type="submit" value="Invia" style="padding:6px 30px;margin-bottom: 20px">
+    </form>
+</div>
+{% endblock %}

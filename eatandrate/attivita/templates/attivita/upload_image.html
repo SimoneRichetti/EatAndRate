@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load bootstrap_tags %}
+{% block head %}
+    <title>Upload</title>
+{% endblock %}
+{% block content %}
+<div align="center">
+    <form enctype="multipart/form-data" action="{% url 'attivita:add_image' pk %}" method="post">
+        {% csrf_token %}
+        {{ form|as_bootstrap }}
+        <input class="btn btn-default" type="submit" value="Invia" style="padding:6px 30px">
+    </form>
+</div>
+{% endblock %}

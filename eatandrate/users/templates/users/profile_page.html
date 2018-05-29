@@ -1,0 +1,9 @@
+{% extends 'base_user.html' %}
+
+{% block header %}
+    <h1>Profilo di {{ utente.username | capfirst }}</h1>
+{% endblock %}
+
+{% block profile_info %}
+    <h2>AFFIDABILITA: {{ utente.user_profile.affidabilita }}</h2>
+{% endblock %}

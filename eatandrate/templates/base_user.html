@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>Profilo</title>
+{% endblock %}
+{% block content %}
+    <div align="center">
+        {% block header %}{% endblock %}
+        {% block manage_profile %}{% endblock %}
+        {% block profile_info %}{% endblock %}
+        {% block notifications %}{% endblock %}
+    </div>
+    <div align="center">
+        <h3>Dati:</h3>
+        <div align="center">
+            {% if utente.first_name %}
+                <p>{{ utente.first_name }}</p>
+            {% endif %}
+            {%  if utente.last_name %}
+                <p>{{ utente.last_name }}</p>
+            {% endif %}
+                <p>{{ utente.email }}</p>
+        </div>
+    </div>
+
+    {% block delete_profile %}{% endblock %}
+{% endblock %}

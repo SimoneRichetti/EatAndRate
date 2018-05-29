@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load bootstrap_tags %}
+
+{% block head %}
+    <title>Registrazione Proprietario</title>
+{% endblock %}
+
+{% block content %}
+    {% if error_msg %}
+        <h2>{{ error_msg }}</h2>
+    {% endif %}
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="col-md-12" align="center"><h3 style="margin-top:10px">Registrazione Attività</h3></div>
+        </div>
+
+        <form method="POST" action="{% url 'users:register_owner' %}">
+            {% csrf_token %}
+            <div class="col-md-1" align="center"></div>
+            <div class="col-md-4" align="center">
+                <div class="row">
+                    <div class="col-md-4" align="center"></div>
+                    <div class="col-md-8" align="center"><h3>Dati Utente</h3></div>
+                    <div class="row-fluid">
+                        <div class="col-md-4" align="center"></div>
+                        <div class="col-md-8" align="center">  {{ uf|as_bootstrap }} </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5" align="center">
+                <div class="row">
+                    <div class="col-md-12" align="center"><h3>Dati Attività</h3></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6" align="center">  {{ af|as_bootstrap }} </div>
+                    <div class="col-md-6" align="center">
+                        {{ tf|as_bootstrap }}
+                        <input class="btn btn-default" type="submit" value="Invia" style="padding:6px 30px"></div>
+                </div>
+            </div>
+            <div class="col-md-2" align="center"></div>
+        </form>
+    </div>
+{% endblock %}

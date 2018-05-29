@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load bootstrap_tags %}
+
+{% block head %}
+    <title>Modifica Profilo</title>
+{% endblock %}
+
+{% block content %}
+    {% if error_msg %}
+        <h2>{{ error_msg }}</h2>
+    {% endif %}
+    <div align="center">
+        <h3 style="margin-top:10px">Modifica Utente</h3>
+        <form method="POST" action="">
+            {% csrf_token %}
+            {{ form|as_bootstrap }}
+            <input class="btn btn-default" type="submit" value="Applica Modifiche" style="padding:6px 30px">
+        </form>
+    </div>
+{% endblock %}

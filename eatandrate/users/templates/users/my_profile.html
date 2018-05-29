@@ -1,0 +1,54 @@
+{% extends 'base_user.html' %}
+
+{% block head %}
+    <title>Il mio profilo</title>
+{% endblock %}
+
+{% block header %}
+    <h1 style="margin-top:10px">Il mio profilo | {{ utente.username | capfirst }}</h1>
+{% endblock %}
+
+{% block manage_profile %}
+    <a href="{% url 'users:modify_profile' %}">
+        <input class="btn btn-default" value="Modifica Profilo" style="padding:6px 5px">
+    </a>
+{% endblock %}
+
+{% block profile_info %}
+    <h2>AFFIDABILITA: {{ utente.user_profile.affidabilita }}</h2>
+{% endblock %}
+
+{% block notifications %}
+<div class="btn-group">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Notifiche
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu" style="height:175px;width:250px;overflow-y:auto;overflow-x:auto">
+    {% if risposte %}
+    {% for r in risposte %}
+        <li>
+            <p>{{ r.notifica.destinatario }} ha risposto alla tua recensione:
+                <a href="{% url 'notifications:delete_answer' r.id %}">
+                    <input class="btn btn-default" value="X" style="width:65px">
+                </a>
+            </p>
+            <p style="padding-left: 10px">{{ r.risposta }}</p>
+            <div class="divider"></div>
+        </li>
+    {% endfor %}
+    {% else %}
+        <li>
+            <div align="center">Nessuna notifica in entrata</div>
+        </li>
+    {% endif %}
+  </ul>
+
+</div>
+{% endblock %}
+
+{% block delete_profile %}
+    <div align="center" style="margin-top:30px">
+        <a href="{% url 'users:delete_profile' %}">
+            <input class="btn btn-default" value="Emilina Profilo" onclick="return confirm('Are you sure?');" style="padding:6px 30px">
+        </a>
+    </div>
+{% endblock %}

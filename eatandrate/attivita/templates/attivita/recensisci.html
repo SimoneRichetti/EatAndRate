@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load bootstrap_tags %}
+{% block head %}
+    <title>Scrivi Recensione</title>
+{% endblock %}
+{% block content %}
+<div align="center">
+    {% if error_msg %}
+        <p>{{ error_msg }}</p>
+    {% endif %}
+    <form action="{% url 'attivita:recensisci' pk %}" method="post">{% csrf_token %}
+        {{ form|as_bootstrap }}
+        <input class="btn btn-default" type="submit" value="Recensisci" style="padding: 6px 15px" />
+    </form>
+</div>
+{% endblock %}
